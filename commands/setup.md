@@ -23,11 +23,12 @@ Then, from what `get_org_context` reports and nothing else:
 - **Signed in.** If the call fails or the connector is missing, the customer
   signs in. In Claude Code, they run `/mcp`, choose `adcopilot` and sign in. In
   Claude on the web, in Cowork or in the desktop app, they open this plugin from
-  the plugin list, then its Connectors tab, and Connect `adcopilot`. One
-  connector and one sign-in serve every AdCopilot plugin they add. In Claude
-  Code, `/mcp` shows the connector once, under whichever AdCopilot plugin loaded
-  first, and if Claude asks them to sign in again after they remove an AdCopilot
-  plugin, they run `/mcp` and sign in once. Never offer "Add custom connector"
+  the plugin list, then its Connectors tab, and Connect `adcopilot`. There is one
+  connector and one AdCopilot account whichever AdCopilot plugins are added. In
+  Claude Code, `/mcp` lists it once, under whichever AdCopilot plugin loaded
+  first, and the sign-in belongs to that entry. If Claude asks for a sign-in
+  again after an AdCopilot plugin was added or removed, run `/mcp` and sign in
+  once. Never offer "Add custom connector"
   to someone who has this plugin installed in Claude: the plugin already brings
   the connector.
 - **Which Google products are connected.** For each of Google Tag Manager,

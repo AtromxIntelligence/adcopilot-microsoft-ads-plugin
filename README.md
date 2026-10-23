@@ -38,7 +38,7 @@ Connect your Google products once, inside AdCopilot, at https://app.adcopilot.cl
 
 ## Already use another AdCopilot plugin?
 
-One connector, one sign-in, whichever AdCopilot plugins you add. Every AdCopilot plugin points at the same connector address, and Claude links a connector by its address. In Claude Code, `/mcp` shows the connector once, under whichever AdCopilot plugin loaded first. If Claude asks you to sign in again after you remove an AdCopilot plugin, run `/mcp` and sign in once.
+There is one connector and one AdCopilot account, whichever AdCopilot plugins you add. Every AdCopilot plugin points at the same address, so your AI client treats them as one connector. In Claude Code, `/mcp` shows the connector once, under whichever AdCopilot plugin loaded first, and the sign-in belongs to that entry. If Claude asks you to sign in again after you add or remove an AdCopilot plugin, run `/mcp` and sign in once.
 
 ## What you get
 

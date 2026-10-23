@@ -314,9 +314,9 @@ class Readme(unittest.TestCase):
                 "/plugin install adcopilot-microsoft-ads@adcopilot-microsoft-ads-plugin",
                 "/mcp", "https://app.adcopilot.cloud",
                 "Already use another AdCopilot plugin?",
-                "One connector, one sign-in, whichever AdCopilot plugins you add.",
-                "`/mcp` shows the connector once, under whichever AdCopilot plugin loaded first.",
-                "If Claude asks you to sign in again after you remove an AdCopilot plugin, run `/mcp` and sign in once."):
+                "There is one connector and one AdCopilot account, whichever AdCopilot plugins you add.",
+                "`/mcp` shows the connector once, under whichever AdCopilot plugin loaded first, and the sign-in belongs to that entry.",
+                "If Claude asks you to sign in again after you add or remove an AdCopilot plugin, run `/mcp` and sign in once."):
             self.assertIn(needle, text, needle)
 
     def test_it_says_what_it_will_not_do(self):
