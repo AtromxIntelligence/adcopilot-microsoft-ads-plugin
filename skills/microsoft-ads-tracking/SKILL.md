@@ -96,10 +96,10 @@ only on a yes, with `gtm_create_trigger` and `gtm_create_tag`.
    consent mode".
 5. **Events and goals.** Microsoft's UET tag records page visits and custom
    events, and counts nothing as a conversion until a conversion goal exists in
-   Microsoft Advertising. Microsoft names these goal types (checked 23 October
+   Microsoft Advertising. Microsoft's goal types include (checked 23 October
    2026, in its API documentation): a URL (a page visited), an event, a
-   duration, pages per visit, an app install, an offline conversion and an
-   in-store transaction. Ask what the customer wants counted (a purchase, a lead, a call
+   duration, pages per visit, an app install or download, an offline
+   conversion and an in-store transaction. Ask what the customer wants counted (a purchase, a lead, a call
    click). A thank-you page is a URL goal: the base tag on that page is enough,
    and no event tag is needed. A click or a form with no page of its own is an
    event goal: it needs an event tag in Tag Manager on a trigger shaped like
@@ -113,7 +113,8 @@ only on a yes, with `gtm_create_trigger` and `gtm_create_tag`.
 6. **Click ID and UTM.** Microsoft's auto-tagging adds `msclkid`, a click ID of
    32 characters that is unique to each ad click, to the landing page address.
    It is an account setting in Microsoft Advertising, and Microsoft says that
-   adding or changing a conversion goal switches it on. Its UTM tagging is a
+   adding or changing a URL, event, duration, pages-per-visit or offline
+   conversion goal switches it on. Its UTM tagging is a
    separate account setting, with three values in Microsoft's API: Inactive,
    Preserve and Replace. You cannot see either. Ask them to click one of their
    own ads and look for `msclkid` in the address bar of the landing page: a
@@ -176,8 +177,9 @@ From Microsoft's developer documentation on learn.microsoft.com: the UET code
 (queue `uetq`, script `bat.bing.com/bat.js`, tag ID `ti`) and the consent
 signal in "Setting up UET for consent mode"; Microsoft's UET template for Tag
 Manager in "Google tag manager template - Consent mode"; the conversion goal
-types in "Universal Event Tracking"; `msclkid` and the UTM tagging values in
-the Bulk and Customer Management reference. The UET Tag Helper's colours, badge and
+types in "Universal Event Tracking" and the ConversionGoalType reference;
+`msclkid`, the goals that switch its auto-tagging on, and the UTM tagging
+values in the Bulk and Customer Management reference. The UET Tag Helper's colours, badge and
 24-hour note are from its store listing and from Microsoft's help pages as a
 web search returned them. No tool could open Microsoft Advertising's own help
 pages on that day, so where a screen's wording matters, Microsoft
