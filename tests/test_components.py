@@ -43,12 +43,13 @@ ALLOWED = {
 # The first answer of every skill, and /setup, says this once. It is one line
 # in the files so that it can be compared as written.
 TODAY_LATER = (
-    "Today: UET tag checks and staged tags in Tag Manager, Bing traffic and key "
-    "events in GA4, UTM and auto-tagging hygiene, conversion goal guidance, "
-    "Google Ads import prep (from the Google Ads account), responsive search ad "
-    "drafts and budget math. Later: reading the Microsoft Advertising account "
-    "when Microsoft approves AdCopilot's API access, with no date, as a plugin "
-    "update adding a Microsoft connector key beside adcopilot."
+    "Today AdCopilot checks your Microsoft Advertising UET tag in Google Tag "
+    "Manager and stages tags there for you to publish, reports Bing traffic and "
+    "key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, "
+    "guides conversion goal setup, prepares a Google Ads import from your Google "
+    "Ads account, drafts responsive search ad copy and does the budget pacing "
+    "math. It cannot read your Microsoft Advertising account yet: that comes "
+    "when Microsoft approves AdCopilot's API access, and there is no date yet."
 )
 
 APPROVAL = (

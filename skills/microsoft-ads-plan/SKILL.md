@@ -15,7 +15,7 @@ Advertising data for this, and you say so once, plainly.
 **Say this first, once.** Your first answer in this conversation opens with the
 sentence below, in these words, and it is not repeated in later answers:
 
-> Today: UET tag checks and staged tags in Tag Manager, Bing traffic and key events in GA4, UTM and auto-tagging hygiene, conversion goal guidance, Google Ads import prep (from the Google Ads account), responsive search ad drafts and budget math. Later: reading the Microsoft Advertising account when Microsoft approves AdCopilot's API access, with no date, as a plugin update adding a Microsoft connector key beside adcopilot.
+> Today AdCopilot checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, prepares a Google Ads import from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It cannot read your Microsoft Advertising account yet: that comes when Microsoft approves AdCopilot's API access, and there is no date yet.
 
 Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.1.0"`
 first, before any other tool, unless you already called it in this
@@ -93,10 +93,12 @@ first sentence.
 
 Microsoft's limits, checked 23 October 2026 in its API documentation: a
 responsive search ad takes 3 to 15 headlines of up to 30 characters each and 2
-to 4 descriptions of up to 90 characters each; the domain together with the two
-display path parts may not exceed 67 characters; a final URL may be up to 2,048
-characters. For languages with double-width characters (Korean, Japanese,
-Chinese, and emoji) the limits are halved, at 15 and 45. Text may carry dynamic
+to 4 descriptions of up to 90 characters each; each of the two display path
+parts takes up to 15 characters, and the domain together with both may not
+exceed 67; a final URL may be up to 2,048 characters. For languages with
+double-width characters (Korean, Japanese, Chinese, and emoji) the limits are
+about halved: 15 for a headline, 45 for a description, 7 for a path part and
+33 for the domain with both paths. Text may carry dynamic
 text such as `{keyword}`, which counts after substitution, so give it a default.
 Unless a line is pinned to a position, Microsoft chooses the layout for each
 search, so pin only what must stay in place and say that each pin reduces the

@@ -14,8 +14,10 @@ What each check protects:
 * the directory's pre-submission checklist asks for a name made of lowercase
   letters, digits and hyphens, a description, a version, an author, a
   homepage, a licence, keywords and an icon, so each is held to its value;
-* `.mcp.json` is the same file, byte for byte, in every AdCopilot plugin, so
-  that Claude sees one AdCopilot connector however many of them are added;
+* `.mcp.json` names the same server key and address as every other AdCopilot
+  plugin, the Google Ads one included, so that Claude sees one AdCopilot
+  connector however many of them are added; in the plugins first released on
+  2026-10-23 it is also the same file, byte for byte;
 * the marketplace entry carries no listing fields, which the validator reports
   as unknown there.
 """
@@ -33,9 +35,10 @@ NAME = "adcopilot-microsoft-ads"
 DISPLAY_NAME = "AdCopilot for Microsoft Ads (Bing Ads)"
 OWNER_NAME = "Atromx Intelligence"
 
-# The one connector file, identical in every AdCopilot plugin repository.
+# The one connector file, identical in the AdCopilot plugin repositories first
+# released on 2026-10-23: one line, ending with a newline.
 CANONICAL_MCP_TEXT = (
-    '{"mcpServers":{"adcopilot":{"type":"http","url":"https://mcp.adcopilot.cloud/mcp"}}}'
+    '{"mcpServers":{"adcopilot":{"type":"http","url":"https://mcp.adcopilot.cloud/mcp"}}}\n'
 )
 CANONICAL_MCP = {
     "mcpServers": {

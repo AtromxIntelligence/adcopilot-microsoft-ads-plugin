@@ -15,7 +15,7 @@ what Microsoft Advertising billed or counted.
 **Say this first, once.** Your first answer in this conversation opens with the
 sentence below, in these words, and it is not repeated in later answers:
 
-> Today: UET tag checks and staged tags in Tag Manager, Bing traffic and key events in GA4, UTM and auto-tagging hygiene, conversion goal guidance, Google Ads import prep (from the Google Ads account), responsive search ad drafts and budget math. Later: reading the Microsoft Advertising account when Microsoft approves AdCopilot's API access, with no date, as a plugin update adding a Microsoft connector key beside adcopilot.
+> Today AdCopilot checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, prepares a Google Ads import from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It cannot read your Microsoft Advertising account yet: that comes when Microsoft approves AdCopilot's API access, and there is no date yet.
 
 Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.1.0"`
 first, before any other tool, unless you already called it in this
@@ -40,33 +40,50 @@ lists what the property counts as a key event (the tool keeps the older word,
 conversion). Dates go in as `YYYY-MM-DD`, and you state the two ranges you
 compare, by date, in the answer.
 
+`ga4_run_report` takes dimensions, metrics, one date range and a row limit,
+and nothing else: it has no filter and no sort. So you ask for the dimensions,
+pick out the rows you need yourself from what comes back, and never say that
+Analytics filtered a report. Comparing two periods is two calls. Its answer
+carries `rowCount`, the number of rows the report has in all: when that is
+more than the rows that came back, the rest were not read, and you say so.
+
 ## What to answer
 
-1. **Bing traffic as Analytics sorts it.** One report over the last 28 days and
+1. **Bing traffic as Analytics sorts it.** Two reports, the last 28 days and
    the 28 before: sessions, key events and revenue (when the property has any)
-   by source and medium, narrowed to sources that contain `bing`. At the time of
+   by source and medium. From each, keep the rows whose source and medium
+   contain `bing`. At the time of
    writing the names are `sessionSourceMedium`, `sessions`, `keyEvents` and
    `totalRevenue`; confirm them with `ga4_get_metadata` if the report refuses
    one. Show `bing / cpc` (paid) and `bing / organic` (unpaid search) as two
    different rows, each with its own numbers, and never add them together as
-   "Bing". Then the same by campaign (`sessionCampaignName`) for the paid row.
+   "Bing". Then the same with `sessionCampaignName` beside
+   `sessionSourceMedium`, keeping the `bing / cpc` rows.
 2. **Paid clicks that arrive without UTM tags.** When a click reaches the site
    with no UTM tags, Analytics can only sort it by what it can see, such as the
    referrer, so a paid Bing visit can sit under `bing / organic` or under another
    source. The test is a report of sessions by `landingPagePlusQueryString`
-   narrowed to addresses that contain `msclkid` (Microsoft's click ID, added by
-   its auto-tagging), with `sessionSourceMedium` beside it. Sessions that carry
-   `msclkid` but are not `bing / cpc` are paid clicks Analytics mislabelled:
-   count them and show the top rows. If the report returns nothing, say that it
+   with `sessionSourceMedium` beside it. With auto-tagging on, every ad click
+   carries its own `msclkid` (Microsoft's click ID), so this report has a row
+   for each click and can be very long: read one recent day, say
+   which, with `limit` set to 200. From the rows that came back, keep those
+   whose address contains `msclkid`. Those that are not `bing / cpc` are paid
+   clicks Analytics mislabelled: count them and show the top rows. If
+   `rowCount` is more than the rows that came back, the count is only of the
+   rows read, so call it "at least", and say that a report in Analytics itself,
+   filtered on a landing page address that contains `msclkid`, gives the full
+   count. If every row was read and none contains `msclkid`, say that this
    cannot tell which of three things is true: auto-tagging is off, the
-   property hides query strings from reports, or there were no paid clicks.
+   property hides query strings from reports, or there were no paid clicks
+   that day.
 3. **Names that will not group.** From the paid row's campaign names, point out
    what splits one thing into several: `(not set)`, a campaign ID where a name
    is wanted, `Bing` against `bing`, `cpc` against `ppc` as the medium. Quote
    the values the report returned, and nothing you did not read.
 4. **Key events.** From `ga4_list_conversion_events`, say whether the events the
    customer cares about are marked as key events, and give the `bing / cpc` count
-   of each from the report. Analytics' key events and Microsoft Advertising's
+   of each from a report of `keyEvents` by `eventName` beside
+   `sessionSourceMedium`, keeping the `bing / cpc` rows. Analytics' key events and Microsoft Advertising's
    conversions are counted by different rules and will not match exactly: say
    so, and never call either one wrong because it differs.
 5. **The fix, if there is a gap.** There are two ways to label paid clicks, and

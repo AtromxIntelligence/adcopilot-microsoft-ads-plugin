@@ -16,7 +16,7 @@ THIS command, keep any limit `next_step` adds, and offer the rest afterwards.
 
 Open your first answer with this, in these words, once:
 
-> Today: UET tag checks and staged tags in Tag Manager, Bing traffic and key events in GA4, UTM and auto-tagging hygiene, conversion goal guidance, Google Ads import prep (from the Google Ads account), responsive search ad drafts and budget math. Later: reading the Microsoft Advertising account when Microsoft approves AdCopilot's API access, with no date, as a plugin update adding a Microsoft connector key beside adcopilot.
+> Today AdCopilot checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, prepares a Google Ads import from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It cannot read your Microsoft Advertising account yet: that comes when Microsoft approves AdCopilot's API access, and there is no date yet.
 
 Then, from what `get_org_context` reports and nothing else:
 
@@ -43,4 +43,5 @@ Then, from what `get_org_context` reports and nothing else:
   changes nothing without an explicit yes.
 
 End with the one next step that fits what is connected: `/adcopilot-microsoft-ads:check` when Tag Manager or
-Analytics is connected, `/adcopilot-microsoft-ads:plan` when only Google Ads is.
+Analytics is connected, `/adcopilot-microsoft-ads:plan` when only Google Ads is,
+and connecting one, with the link `get_org_context` gives, when none is.

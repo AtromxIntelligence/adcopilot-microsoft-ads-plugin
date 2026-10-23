@@ -3,7 +3,7 @@
 Microsoft Ads (Bing Ads) help in your AI client, through AdCopilot. Today it:
 
 - checks your Microsoft Advertising UET tag in Google Tag Manager (`gtm_list_tags`, `gtm_list_triggers`) and, when you paste Microsoft's code, stages the tag or an event tag for you to publish (`gtm_create_tag`, `gtm_create_trigger`);
-- reports your Bing traffic, key events and revenue in Google Analytics (GA4) by source, medium and campaign (`ga4_run_report`), and finds paid clicks that arrive without UTM tags;
+- reports your Bing traffic, key events and revenue in Google Analytics (GA4) by source, medium and campaign (`ga4_run_report`), and looks for paid clicks that arrive without UTM tags;
 - guides UTM tagging, auto-tagging and conversion goal setup, with the exact text to paste into Microsoft Advertising;
 - prepares a Google Ads import from your Google Ads account (`search`, `analyze_waste`, `conversion_setup_audit`), drafts responsive search ad copy within Microsoft's limits, and does the budget pacing math.
 
