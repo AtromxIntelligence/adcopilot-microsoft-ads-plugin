@@ -1,0 +1,16 @@
+{
+  "name": "adcopilot-microsoft-ads-plugin",
+  "description": "AdCopilot for Microsoft Ads (Bing Ads) for Claude Code: UET tag checks in Google Tag Manager, Bing traffic in Google Analytics, UTM hygiene, Google Ads import prep, responsive search ad drafts and budget pacing math. Made by Atromx Intelligence, not by Microsoft.",
+  "owner": {
+    "name": "Atromx Intelligence",
+    "url": "https://adcopilot.cloud"
+  },
+  "plugins": [
+    {
+      "name": "adcopilot-microsoft-ads",
+      "source": "./",
+      "description": "Microsoft Ads (Bing Ads) help through AdCopilot: UET tag checks in Tag Manager, Bing traffic in GA4, UTM hygiene, Google Ads import prep, ad copy drafts and budget math. Direct Microsoft Advertising account access is not available yet.",
+      "category": "Marketing"
+    }
+  ]
+}
