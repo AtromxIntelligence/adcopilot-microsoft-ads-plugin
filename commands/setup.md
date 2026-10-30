@@ -7,7 +7,7 @@ Check that the AdCopilot connector is signed in, say plainly what this plugin
 does for Microsoft Ads (Bing Ads) today and what it does not, and say which
 Google products are connected.
 
-Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.1.0"`
+Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.1.1"`
 first, before any other tool. Send `source` exactly as written, the version
 included. If this run is a scheduled task with nobody there to answer, send
 `source: "claude-scheduled"` instead and change nothing. `get_org_context`'s
@@ -16,7 +16,7 @@ THIS command, keep any limit `next_step` adds, and offer the rest afterwards.
 
 Open your first answer with this, in these words, once:
 
-> Today AdCopilot checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, prepares a Google Ads import from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It cannot read your Microsoft Advertising account yet: that comes when Microsoft approves AdCopilot's API access, and there is no date yet.
+> Today AdCopilot checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, prepares a Google Ads import from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It cannot read your Microsoft Advertising account yet: that part of AdCopilot is being built, and there is no date yet.
 
 Then, from what `get_org_context` reports and nothing else:
 

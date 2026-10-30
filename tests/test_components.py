@@ -40,6 +40,11 @@ ALLOWED = {
     "commands/plan.md": set(),
 }
 
+# What comes later, in these words wherever it is said: the manifest, the
+# marketplace entry, the README. It promises no approval and no date.
+LATER = ("Direct access to your Microsoft Advertising account is being built and is "
+         "not available yet; there is no date.")
+
 # The first answer of every skill, and /setup, says this once. It is one line
 # in the files so that it can be compared as written.
 TODAY_LATER = (
@@ -48,8 +53,8 @@ TODAY_LATER = (
     "key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, "
     "guides conversion goal setup, prepares a Google Ads import from your Google "
     "Ads account, drafts responsive search ad copy and does the budget pacing "
-    "math. It cannot read your Microsoft Advertising account yet: that comes "
-    "when Microsoft approves AdCopilot's API access, and there is no date yet."
+    "math. It cannot read your Microsoft Advertising account yet: that part of "
+    "AdCopilot is being built, and there is no date yet."
 )
 
 APPROVAL = (
@@ -59,8 +64,8 @@ APPROVAL = (
 
 TRADEMARK_LINE = (
     "Made by Atromx Intelligence (https://adcopilot.cloud). Not affiliated with "
-    "or endorsed by Microsoft. Microsoft, Microsoft Advertising and Bing are "
-    "trademarks of Microsoft Corporation."
+    "or endorsed by Microsoft. Microsoft, Bing, Microsoft Advertising and "
+    "Microsoft Clarity are trademarks of the Microsoft group of companies."
 )
 
 # Tools that are in the registry but switched off in production: never named.
@@ -291,7 +296,7 @@ class Readme(unittest.TestCase):
         self.assertLessEqual(words, 1200)
 
     def test_it_opens_with_the_display_name(self):
-        self.assertTrue(self.text.startswith("# AdCopilot for Microsoft Ads (Bing Ads)\n"))
+        self.assertTrue(self.text.startswith("# AdCopilot for Microsoft Ads, Bing Webmaster, Clarity\n"))
 
     def test_it_holds_the_trademark_line_and_the_plans_line(self):
         text = squash(self.text)
@@ -303,8 +308,10 @@ class Readme(unittest.TestCase):
     def test_it_says_today_and_later_in_the_first_lines(self):
         head = squash("\n".join(self.text.split("\n")[:12]))
         self.assertIn("Today it:", head)
-        self.assertIn("Direct access to your Microsoft Advertising account comes when Microsoft "
-                      "approves AdCopilot's API access; there is no date yet.", head)
+        self.assertIn(LATER, head)
+        # The name lists three products; the README says this version reads none.
+        self.assertIn("Microsoft Advertising, Bing Webmaster Tools and Microsoft Clarity. "
+                      "This version reads none of them.", head)
 
     def test_it_explains_install_on_every_surface_and_the_shared_connector(self):
         text = squash(self.text)

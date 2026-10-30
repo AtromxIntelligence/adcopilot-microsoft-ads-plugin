@@ -1,15 +1,15 @@
-# AdCopilot for Microsoft Ads (Bing Ads)
+# AdCopilot for Microsoft Ads, Bing Webmaster, Clarity
 
-Microsoft Ads (Bing Ads) help in your AI client, through AdCopilot. Today it:
+Works with Microsoft Advertising, in your AI client, through AdCopilot. Today it:
 
 - checks your Microsoft Advertising UET tag in Google Tag Manager (`gtm_list_tags`, `gtm_list_triggers`) and, when you paste Microsoft's code, stages the tag or an event tag for you to publish (`gtm_create_tag`, `gtm_create_trigger`);
 - reports your Bing traffic, key events and revenue in Google Analytics (GA4) by source, medium and campaign (`ga4_run_report`), and looks for paid clicks that arrive without UTM tags;
 - guides UTM tagging, auto-tagging and conversion goal setup, with the exact text to paste into Microsoft Advertising;
 - prepares a Google Ads import from your Google Ads account (`search`, `analyze_waste`, `conversion_setup_audit`), drafts responsive search ad copy within Microsoft's limits, and does the budget pacing math.
 
-Direct access to your Microsoft Advertising account comes when Microsoft approves AdCopilot's API access; there is no date yet. Until then this plugin reads no Microsoft Advertising account, and it says so in its first answer.
+Direct access to your Microsoft Advertising account is being built and is not available yet; there is no date. Until then this plugin reads no Microsoft Advertising account, and it says so in its first answer. The name lists the Microsoft products AdCopilot is being built to work with: Microsoft Advertising, Bing Webmaster Tools and Microsoft Clarity. This version reads none of them.
 
-Made by Atromx Intelligence (https://adcopilot.cloud). Not affiliated with or endorsed by Microsoft. Microsoft, Microsoft Advertising and Bing are trademarks of Microsoft Corporation. AdCopilot is not related to other products named AdCopilot.
+Made by Atromx Intelligence (https://adcopilot.cloud). Not affiliated with or endorsed by Microsoft. Microsoft, Bing, Microsoft Advertising and Microsoft Clarity are trademarks of the Microsoft group of companies. AdCopilot is not related to other products named AdCopilot.
 
 The plugin is free (MIT). The AdCopilot connector is a hosted service: Free plan available; paid plans on https://adcopilot.cloud/pricing
 
@@ -19,7 +19,7 @@ Two steps on every surface: add the plugin, then sign in to the connector it bri
 
 ### claude.ai, Cowork and the desktop app
 
-1. Open **Customize**, then **Plugins**, search for AdCopilot for Microsoft Ads, and click **Add**.
+1. Open **Customize**, then **Plugins**, search for "AdCopilot for Microsoft Ads, Bing Webmaster, Clarity", and click **Add**.
 2. In the plugin, open its **Connectors** tab, click **Connect** beside `adcopilot`, and sign in.
 
 ### Claude Code
@@ -75,6 +75,8 @@ Open an issue at https://github.com/AtromxIntelligence/adcopilot-microsoft-ads-p
 
 ## Version
 
+**0.1.1 (2026-10-31, written against AdCopilot v2.44.0, live since 2026-10-22)**: text and name only. The display name is now "AdCopilot for Microsoft Ads, Bing Webmaster, Clarity", and the keywords `microsoft-ads` and `bing-ads` are dropped. Every place that said what comes later now says: direct access to your Microsoft Advertising account is being built and is not available yet; there is no date. The skills, the commands, the tools they name and the connector are as in 0.1.0. Reading a Microsoft Advertising account is not part of this version.
+
 **0.1.0 (2026-10-23, written against AdCopilot v2.44.0, live since 2026-10-22)**: the first release. Four skills and three commands for Microsoft Ads (Bing Ads) through the AdCopilot connector as it is today: UET tag checks and staged tags in Tag Manager, Bing traffic and key events in GA4, UTM and auto-tagging hygiene, conversion goal guidance, Google Ads import prep, responsive search ad drafts and budget pacing math. It reads no Microsoft Advertising account.
 
 ## Licence
@@ -83,4 +85,4 @@ MIT. See the LICENSE file.
 
 ## What CI runs
 
-Two workflows run on every push to main and every pull request, and neither holds a secret. `checks` runs `claude plugin validate` in strict mode on the repository and the manifest, checks that the JSON files parse and that every skill and command has a name and a description, runs the stdlib-only tests in `tests` (sizes against the plugin directory's limits, the manifest, the skills and commands against the connector's real tool names, and a hygiene scan), and checks that the manifest version is not behind the latest tag. `leak-check` runs gitleaks over every commit.
+Two workflows run on every push to main and every pull request, and neither holds a secret. `checks` runs `claude plugin validate` in strict mode on the repository and the manifest, checks that the JSON files parse and that every skill and command has a name and a description, runs the stdlib-only tests in `tests` (sizes against the plugin directory's limits, the manifest, the skills and commands against the connector's real tool names, and a hygiene scan that includes a ban on any claim of approval, certification or partnership from Microsoft), and checks that the manifest version is not behind the latest tag. `leak-check` runs gitleaks over every commit.

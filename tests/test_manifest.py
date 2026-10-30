@@ -32,7 +32,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 REPO = "adcopilot-microsoft-ads-plugin"
 NAME = "adcopilot-microsoft-ads"
-DISPLAY_NAME = "AdCopilot for Microsoft Ads (Bing Ads)"
+DISPLAY_NAME = "AdCopilot for Microsoft Ads, Bing Webmaster, Clarity"
+
+# What comes later, in these words wherever it is said: the manifest, the
+# marketplace entry and the README. It promises no approval, no partnership
+# and no date.
+LATER = ("Direct access to your Microsoft Advertising account is being built and is "
+         "not available yet; there is no date.")
 OWNER_NAME = "Atromx Intelligence"
 
 # The one connector file, identical in the AdCopilot plugin repositories first
@@ -84,7 +90,7 @@ class Manifest(unittest.TestCase):
 
     def test_version_is_semver(self):
         self.assertRegex(self.manifest["version"], SEMVER_RE)
-        self.assertEqual(self.manifest["version"], "0.1.0")
+        self.assertEqual(self.manifest["version"], "0.1.1")
 
     def test_urls_are_https_and_the_decided_ones(self):
         m = self.manifest
@@ -105,18 +111,22 @@ class Manifest(unittest.TestCase):
         self.assertEqual(len(keywords), len(set(keywords)))
         for word in keywords:
             self.assertRegex(word, KEYWORD_RE)
-        # The words people type for this product are in there.
-        for word in ("microsoft-ads", "bing-ads", "uet-tag"):
+        # The words people type for this product are in there, but not the two
+        # that are not Microsoft's own names for it.
+        for word in ("microsoft-advertising", "uet-tag"):
             self.assertIn(word, keywords)
+        for word in ("microsoft-ads", "bing-ads"):
+            self.assertNotIn(word, keywords)
 
     def test_description_leads_with_the_product_and_ends_with_the_owner_line(self):
         d = self.manifest["description"]
-        self.assertTrue(d.startswith("Microsoft Ads (Bing Ads)"), d[:40])
+        # The product's own name, used only as a statement of compatibility.
+        self.assertTrue(d.startswith("Works with Microsoft Advertising: UET tag checks in Google Tag Manager,"), d[:80])
         self.assertTrue(d.endswith("Made by Atromx Intelligence, not by Microsoft."), d[-60:])
         self.assertLessEqual(len(d), 700, "the listing text grew to %d characters" % len(d))
         # The today and later halves, said plainly in the listing too.
-        self.assertIn("comes when Microsoft approves AdCopilot's API access", d)
-        self.assertIn("there is no date yet", d)
+        self.assertIn(LATER, d)
+        self.assertNotIn("approves", d)
         self.assertIn("proposed first and made only on your yes", d)
 
     def test_the_icon_is_our_own_png(self):
@@ -131,8 +141,10 @@ class Manifest(unittest.TestCase):
     def test_readme_version_paragraph_matches_the_manifest(self):
         text = (ROOT / "README.md").read_text(encoding="utf-8")
         found = re.findall(r"^\*\*(\d+\.\d+\.\d+) \((\d{4}-\d{2}-\d{2})[^)]*\)\*\*", text, re.M)
-        self.assertEqual(len(found), 1, "one bold version paragraph, which the ship script reads")
+        # One bold paragraph per release, newest first: the first is this one.
+        self.assertEqual([v for v, _ in found], ["0.1.1", "0.1.0"])
         self.assertEqual(found[0][0], self.manifest["version"])
+        self.assertIn("**0.1.1 (2026-10-31, written against AdCopilot v2.44.0, live since 2026-10-22)**", text)
         self.assertIn("**0.1.0 (2026-10-23, written against AdCopilot v2.44.0, live since 2026-10-22)**", text)
 
 
@@ -167,6 +179,10 @@ class Marketplace(unittest.TestCase):
         self.assertEqual(entry["source"], "./")
         self.assertEqual(entry["category"], "Marketing")
         self.assertTrue(entry["description"].strip())
+        # What comes later is said in the same words as in the manifest.
+        self.assertTrue(entry["description"].endswith(LATER), entry["description"])
+        self.assertTrue(entry["description"].startswith("Works with Microsoft Advertising:"))
+        self.assertNotIn("Bing Ads", market["description"])
         # The directory's listing fields belong in plugin.json: the validator
         # reports them as unknown inside a marketplace entry.
         self.assertEqual(sorted(entry), ["category", "description", "name", "source"])

@@ -29,6 +29,20 @@ TEXT_SUFFIXES_SKIPPED = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico", ".pyc
 DOWNLOAD_SCAN_SKIPS = {".github/workflows/checks.yml"}
 
 OWNERS = ("Google", "Meta", "LinkedIn", "X", "TikTok", "Microsoft")
+OWNER = "Microsoft"
+
+# Words that read as a claim of a relationship with the platform: that it gave
+# its approval to AdCopilot, put its name to it or counts it as a partner, and
+# the word for having passed a certification. The plugin makes no such claim.
+# The patterns are built from pieces, so this file never matches itself.
+CERT = "certifi" + "ed"
+CLAIM_PATTERNS = [
+    r"(?i)\b(?:approv(?:ed|al)|" + CERT + r"|sponsored)\s+(?:by|from)\s+" + OWNER + r"\b",
+    r"(?i)\b" + OWNER + r"(?:['\u2019]s)?[\s-]+(?:has\s+)?(?:approv(?:e[sd]?|al)|certifi(?:ed|cation))\b",
+    r"(?i)\b" + OWNER + r"(?:['\u2019]s)?\s+(?:advertising\s+)?partn(?:ers?|ership)\b",
+    r"(?i)\bpartner(?:ed|s|ship)?\s+(?:of|with)\s+" + OWNER + r"\b",
+    r"(?i)\b" + CERT + r"\b",
+]
 
 
 def text_files():
@@ -163,11 +177,52 @@ class WhatThePluginDoesNotSay(unittest.TestCase):
         self.assertEqual(hits(r"\b[Bb]y (?:%s)\b" % owners, files=cleaned), [])
 
     def test_no_claim_that_adcopilot_connects_to_a_microsoft_account_today(self):
-        # The honest line is that it will, when Microsoft approves, with no date.
+        # The honest line is that direct access is being built, with no date.
         for pattern in (r"(?i)connects? to (your )?microsoft advertising account",
                         r"(?i)manages? your microsoft advertising",
                         r"(?i)reads? your microsoft advertising (spend|campaigns)"):
             self.assertEqual(hits(pattern), [], pattern)
+
+    def test_it_never_claims_the_platforms_approval_certification_or_partnership(self):
+        # Every text file, the tests included: the patterns are built from
+        # pieces, so this file does not match itself.
+        for name, text in text_files():
+            flat = re.sub(r"\s+", " ", text)
+            for pattern in CLAIM_PATTERNS:
+                hit = re.search(pattern, flat)
+                self.assertIsNone(hit, "%s says %r" % (name, hit and hit.group(0)))
+
+    def test_the_ban_catches_the_ways_it_is_said_and_leaves_the_plain_sentences(self):
+        # The phrases are built at run time, so this file carries none of them.
+        caught = [
+            "approved by {o}", "approval from {o}", CERT + " by {o}", "sponsored by {o}",
+            "{o} approves", "{o}-approved", "{o} has approved", "pending {o} approval",
+            "with {o}'s approval", "with {o}\u2019s approval", "{o}-" + CERT, "{o} certification",
+            "{o} partner", "{o} Partners", "{o}'s partner program", "{o}\u2019s Partner",
+            "{o} Advertising partner", "{o} partnership", "a partner of {o}",
+            "partnered with {o}", "in partnership with {o}", "a " + CERT + " plugin",
+            "when {o} approves AdCopilot's API access",
+        ]
+        passed = [
+            "Not affiliated with or endorsed by {o}", "Made by Atromx Intelligence, not by {o}.",
+            "Direct access to your {o} Advertising account is being built and is not "
+            "available yet; there is no date.",
+            "{o} Advertising Editor", "the {o} Advertising UET tag",
+            "no claim of approval or partnership from {o}",
+        ]
+
+        def hits(phrase):
+            return [p for p in CLAIM_PATTERNS if re.search(p, phrase.format(o=OWNER))]
+
+        for phrase in caught:
+            self.assertNotEqual(hits(phrase), [], phrase)
+        for phrase in passed:
+            self.assertEqual(hits(phrase), [], phrase)
+
+    def test_the_word_official_is_caught_by_its_own_ban(self):
+        pattern = r"(?i)\b" + "offic" + "ial" + r"\b"
+        for phrase in ("the " + "offic" + "ial plugin", "Offic" + "ial Microsoft Advertising help"):
+            self.assertIsNotNone(re.search(pattern, phrase), phrase)
 
 
 if __name__ == "__main__":
