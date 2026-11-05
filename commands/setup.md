@@ -7,7 +7,7 @@ Check that the AdCopilot connector is signed in, say plainly what this plugin
 does for Microsoft Ads (Bing Ads) today and what it does not, and say which
 Google products are connected.
 
-Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.1.1"`
+Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.1.2"`
 first, before any other tool. Send `source` exactly as written, the version
 included. If this run is a scheduled task with nobody there to answer, send
 `source: "claude-scheduled"` instead and change nothing. `get_org_context`'s
