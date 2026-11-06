@@ -1,6 +1,6 @@
 ---
 name: microsoft-ads-traffic
-description: "Report Bing and Microsoft Advertising traffic and key events in Google Analytics (GA4) by source, medium and campaign, find paid clicks that arrive without UTM tags, and fix UTM and auto-tagging gaps. Use when the user asks how Bing Ads or Microsoft Ads traffic shows in Google Analytics, bing / cpc, bing / organic, UTM tags, msclkid, auto-tagging, campaign names in GA4, or why Analytics and Microsoft Advertising show different numbers."
+description: "Report Bing and Microsoft Advertising traffic and key events in Google Analytics (GA4) through AdCopilot, by source, medium and campaign, find Microsoft Ads clicks that arrive without UTM tags, and fix their UTM and auto-tagging gaps. Use when the user asks how Bing Ads or Microsoft Ads traffic shows in Google Analytics, about bing / cpc or bing / organic, UTM tags or auto-tagging on Microsoft Ads clicks, msclkid, Microsoft Ads campaign names in GA4, or why Analytics and Microsoft Advertising show different numbers."
 ---
 
 # Bing and Microsoft Ads traffic in Google Analytics

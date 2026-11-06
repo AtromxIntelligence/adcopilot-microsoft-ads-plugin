@@ -61,7 +61,7 @@ Facts about Microsoft's products in the skills (limits, tag code, settings) were
 
 - Read your Microsoft Advertising account, its spend or its conversion goals. It asks you to read them there.
 - Publish Tag Manager. Tag changes are staged in a workspace named AdCopilot, and publishing is your click.
-- Delete anything.
+- Delete anything. Its skills and commands remove nothing: their only changes are new tags and triggers, staged in Tag Manager.
 - Change anything without your yes. Every change is proposed first, with what it changes and how to undo it.
 - Make up numbers or claims. Numbers are the tools' numbers or yours, and ad copy uses only facts you gave it.
 

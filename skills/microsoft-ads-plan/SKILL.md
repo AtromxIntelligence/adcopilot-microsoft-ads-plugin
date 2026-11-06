@@ -1,6 +1,6 @@
 ---
 name: microsoft-ads-plan
-description: "Plan Microsoft Ads (Bing Ads) from the customer's Google Ads account: which campaigns to bring over with Microsoft Advertising's Import from Google Ads, what to fix first, what budget to test, and responsive search ad drafts. Use when the user asks to start on Bing, import Google Ads campaigns into Microsoft Ads, write Bing ad copy or responsive search ads, or plan a Microsoft Advertising budget."
+description: "Plan Microsoft Ads (Bing Ads) from the customer's Google Ads account, read through AdCopilot: which campaigns to bring over with Microsoft Advertising's Import from Google Ads, what to fix first, what budget to test, and responsive search ad drafts. Use when the user asks to start on Bing, import Google Ads campaigns into Microsoft Ads, write ad copy or responsive search ads for Bing or Microsoft Ads, or plan a Microsoft Advertising budget."
 ---
 
 # Microsoft Ads plan and copy

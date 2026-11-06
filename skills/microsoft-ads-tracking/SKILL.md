@@ -1,6 +1,6 @@
 ---
 name: microsoft-ads-tracking
-description: "Check that Microsoft Advertising's UET tag (the Bing Ads tracking tag) is in Google Tag Manager, fires on the right pages and has conversion event tags behind it, and stage a missing tag as a draft for the customer to publish. Use when the user asks about the UET tag, Bing Ads or Microsoft Ads conversion tracking, a Microsoft Advertising tag that shows inactive or unverified, no conversions in Microsoft Ads, msclkid, or setting up a Microsoft conversion goal."
+description: "Check, through AdCopilot, that Microsoft Advertising's UET tag (the Bing Ads tracking tag) is in Google Tag Manager, fires on the right pages and has conversion event tags behind it, and stage a missing tag as a draft for the customer to publish. Use when the user asks about the UET tag, Bing Ads or Microsoft Ads conversion tracking, a Microsoft Advertising tag that shows inactive or unverified, no conversions in Microsoft Ads, msclkid, or setting up a Microsoft conversion goal."
 ---
 
 # Microsoft Ads tracking check
