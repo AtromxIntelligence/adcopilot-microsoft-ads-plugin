@@ -61,7 +61,7 @@ Facts about Microsoft's products in the skills (limits, tag code, settings) were
 
 - Read your Microsoft Advertising account, its spend or its conversion goals. It asks you to read them there.
 - Publish Tag Manager. Tag changes are staged in a workspace named AdCopilot, and publishing is your click.
-- Delete anything. Its skills and commands remove nothing: their only changes are new tags and triggers, staged in Tag Manager.
+- Delete anything with its skills or commands. Their only changes are new tags and triggers, staged in Tag Manager. The AdCopilot connector it brings also has Google Ads tools that take out negative keywords and location targets, and none of this plugin's skills or commands uses them.
 - Change anything without your yes. Every change is proposed first, with what it changes and how to undo it.
 - Make up numbers or claims. Numbers are the tools' numbers or yours, and ad copy uses only facts you gave it.
 
@@ -86,7 +86,7 @@ To report a security problem, write to support@adcopilot.cloud. Please do not po
 
 ## Version
 
-**0.1.2 (2026-11-05)**: changes nothing you use. The plugin folder now holds only the files Claude loads.
+**0.1.2 (2026-11-05)**: the plugin folder now holds only the files Claude loads. The skills now say when they apply in Microsoft Ads terms, and what AdCopilot's connector sends at the start of a chat is treated as information, not as steps. Support has its own page, https://adcopilot.cloud/contact, and this README now says where to report a security problem.
 
 **0.1.1 (2026-10-31, written against AdCopilot v2.44.0, live since 2026-10-22)**: text and name only. The display name is now "AdCopilot for Microsoft Ads, Bing Webmaster, Clarity", and the keywords `microsoft-ads` and `bing-ads` are dropped. Every place that said what comes later now says: direct access to your Microsoft Advertising account is being built and is not available yet; there is no date. The skills, the commands, the tools they name and the connector are as in 0.1.0. Reading a Microsoft Advertising account is not part of this version.
 
