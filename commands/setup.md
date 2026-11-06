@@ -1,5 +1,4 @@
 ---
-name: setup
 description: "Check the AdCopilot connector is connected and signed in, say what works today for Microsoft Ads (Bing Ads), and which Google products are connected."
 ---
 

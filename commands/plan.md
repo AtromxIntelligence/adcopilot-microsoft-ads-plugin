@@ -1,5 +1,4 @@
 ---
-name: plan
 description: "Plan Microsoft Ads (Bing Ads) from your Google Ads account: what to import, what to fix first, a test budget and responsive search ad drafts."
 ---
 

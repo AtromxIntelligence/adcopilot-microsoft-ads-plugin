@@ -80,7 +80,9 @@ After you sign in, ask in your own words. For example:
 
 ## Support
 
-Open an issue at https://github.com/AtromxIntelligence/adcopilot-microsoft-ads-plugin/issues, or write to support@adcopilot.cloud.
+Open an issue at https://github.com/AtromxIntelligence/adcopilot-microsoft-ads-plugin/issues, or write to support@adcopilot.cloud. The contact page is https://adcopilot.cloud/contact.
+
+To report a security problem, write to support@adcopilot.cloud. Please do not post it in a public issue.
 
 ## Version
 

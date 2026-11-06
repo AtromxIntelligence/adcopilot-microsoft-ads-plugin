@@ -1,5 +1,4 @@
 ---
-name: check
 description: "Check Microsoft Ads (Bing Ads) tracking: the UET tag in Google Tag Manager, then Bing traffic and key events in Google Analytics."
 ---
 
