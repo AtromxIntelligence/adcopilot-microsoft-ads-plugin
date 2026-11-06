@@ -1,6 +1,6 @@
 ---
 name: microsoft-ads-budget
-description: "Do budget pacing math for Microsoft Advertising spend from the figures the customer gives: projected month-end spend, the daily amount that lands on budget, and whether spend is over or under pace. Use when the user asks whether their Bing Ads or Microsoft Ads spend is on pace, how much to spend a day to land on a monthly budget, or whether a Microsoft Advertising budget will run out early."
+description: "Do budget pacing math for Microsoft Advertising spend from the figures the customer gives: projected month-end spend, the daily amount that lands on budget, and whether spend is over or under pace. Use when the user asks whether their Bing Ads or Microsoft Ads spend is on pace, how much to spend a day to land on a monthly Microsoft Ads budget, or whether a Microsoft Advertising budget will run out early."
 ---
 
 # Microsoft Ads budget pacing

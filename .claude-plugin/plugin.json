@@ -1,6 +1,6 @@
 {
   "name": "adcopilot-microsoft-ads",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Works with Microsoft Advertising: UET tag checks in Google Tag Manager, Bing traffic and conversions in Google Analytics (GA4) by source, medium and campaign, UTM and auto-tagging checks, conversion goal guidance, a Google Ads import plan, responsive search ad drafts and budget pacing math, in your AI client, through AdCopilot. Direct access to your Microsoft Advertising account is being built and is not available yet; there is no date. Every change is proposed first and made only on your yes. Made by Atromx Intelligence, not by Microsoft.",
   "author": {
     "name": "Atromx Intelligence",
@@ -10,7 +10,7 @@
   "privacyPolicyUrl": "https://adcopilot.cloud/privacy",
   "documentationUrl": "https://adcopilot.cloud/docs/",
   "termsOfServiceUrl": "https://adcopilot.cloud/terms",
-  "supportUrl": "https://github.com/AtromxIntelligence/adcopilot-microsoft-ads-plugin/issues",
+  "supportUrl": "https://adcopilot.cloud/contact",
   "repository": "https://github.com/AtromxIntelligence/adcopilot-microsoft-ads-plugin",
   "license": "MIT",
   "keywords": [

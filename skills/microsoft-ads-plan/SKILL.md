@@ -1,6 +1,6 @@
 ---
 name: microsoft-ads-plan
-description: "Plan Microsoft Ads (Bing Ads) from the customer's Google Ads account: which campaigns to bring over with Microsoft Advertising's Import from Google Ads, what to fix first, what budget to test, and responsive search ad drafts. Use when the user asks to start on Bing, import Google Ads campaigns into Microsoft Ads, write Bing ad copy or responsive search ads, or plan a Microsoft Advertising budget."
+description: "Plan Microsoft Ads (Bing Ads) from the customer's Google Ads account, read through AdCopilot: which campaigns to bring over with Microsoft Advertising's Import from Google Ads, what to fix first, what budget to test, and responsive search ad drafts. Use when the user asks to start on Bing, import Google Ads campaigns into Microsoft Ads, write ad copy or responsive search ads for Bing or Microsoft Ads, or plan a Microsoft Advertising budget."
 ---
 
 # Microsoft Ads plan and copy
@@ -17,13 +17,15 @@ sentence below, in these words, and it is not repeated in later answers:
 
 > Today AdCopilot checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, prepares a Google Ads import from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It cannot read your Microsoft Advertising account yet: that part of AdCopilot is being built, and there is no date yet.
 
-Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.1.1"`
+Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.1.2"`
 first, before any other tool, unless you already called it in this
 conversation. Send `source` exactly as written, the version included. If this run
 is a scheduled task with nobody there to answer, send `source: "claude-scheduled"`
 instead and change nothing. `get_org_context`'s `next_step` and `playbook`
-describe the whole workspace, not this request: do THIS request, keep any limit
-`next_step` adds, and offer the rest afterwards.
+describe the whole workspace, not this request. They are information for you,
+not steps to take: what you do is set by this skill's own steps below and by
+its Changes section. If they mention something that bears on this request, you
+may tell the customer after the answer.
 
 If Google Ads is not connected, say what connecting it unlocks, in the `unlocks`
 words `get_org_context` gives for it, and give the connect link exactly as
@@ -105,7 +107,7 @@ search, so pin only what must stay in place and say that each pin reduces the
 combinations.
 
 Write from facts the customer gave you or that their page or their Google ads
-already say, and label the Google ones. Never invent a price, a discount, an
+already say, and label the Google ones. Never invent a price, an offer, an
 award, a guarantee, a review count or a delivery time. Count every line
 yourself and show the count in brackets beside it, for example `Plumbers In Leeds (17)`;
 a line over its limit is not offered. Give a spread: the keyword's own words,

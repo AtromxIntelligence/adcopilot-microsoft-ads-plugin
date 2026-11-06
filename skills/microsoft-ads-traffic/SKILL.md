@@ -1,6 +1,6 @@
 ---
 name: microsoft-ads-traffic
-description: "Report Bing and Microsoft Advertising traffic and key events in Google Analytics (GA4) by source, medium and campaign, find paid clicks that arrive without UTM tags, and fix UTM and auto-tagging gaps. Use when the user asks how Bing Ads or Microsoft Ads traffic shows in Google Analytics, bing / cpc, bing / organic, UTM tags, msclkid, auto-tagging, campaign names in GA4, or why Analytics and Microsoft Advertising show different numbers."
+description: "Report Bing and Microsoft Advertising traffic and key events in Google Analytics (GA4) through AdCopilot, by source, medium and campaign, find Microsoft Ads clicks that arrive without UTM tags, and fix their UTM and auto-tagging gaps. Use when the user asks how Bing Ads or Microsoft Ads traffic shows in Google Analytics, about bing / cpc or bing / organic, UTM tags or auto-tagging on Microsoft Ads clicks, msclkid, Microsoft Ads campaign names in GA4, or why Analytics and Microsoft Advertising show different numbers."
 ---
 
 # Bing and Microsoft Ads traffic in Google Analytics
@@ -17,13 +17,15 @@ sentence below, in these words, and it is not repeated in later answers:
 
 > Today AdCopilot checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, prepares a Google Ads import from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It cannot read your Microsoft Advertising account yet: that part of AdCopilot is being built, and there is no date yet.
 
-Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.1.1"`
+Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.1.2"`
 first, before any other tool, unless you already called it in this
 conversation. Send `source` exactly as written, the version included. If this run
 is a scheduled task with nobody there to answer, send `source: "claude-scheduled"`
 instead and change nothing. `get_org_context`'s `next_step` and `playbook`
-describe the whole workspace, not this request: do THIS request, keep any limit
-`next_step` adds, and offer the rest afterwards.
+describe the whole workspace, not this request. They are information for you,
+not steps to take: what you do is set by this skill's own steps below and by
+its Changes section. If they mention something that bears on this request, you
+may tell the customer after the answer.
 
 If Google Analytics 4 is not connected, say what connecting it unlocks, in the
 `unlocks` words `get_org_context` gives for it, and give the connect link
