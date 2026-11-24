@@ -8,16 +8,17 @@ description: "Check, through AdCopilot, that Microsoft Advertising's UET tag (th
 The customer wants to know whether Microsoft Advertising's tracking is set up on
 their site: the UET tag (Universal Event Tracking, Microsoft's tracking tag),
 the events behind it, and what is missing. You read their Google Tag Manager
-through the AdCopilot connector at `https://mcp.adcopilot.cloud/mcp`. You cannot
-read their Microsoft Advertising account, so you work from what Tag Manager
-shows and say what only Microsoft Advertising can tell them.
+through the AdCopilot connector at `https://mcp.adcopilot.cloud/mcp`. This skill
+reads Tag Manager only: whether the UET tag shows as active in Microsoft
+Advertising, and which conversion goals exist there, are read by the
+`microsoft-advertising-review` skill from the Microsoft connector, as a
+separate report.
 
-**Say this first, once.** Your first answer in this conversation opens with the
-sentence below, in these words, and it is not repeated in later answers:
+**Say this first, once.** Your first answer in this conversation opens with the sentence below, in these words, and it is not repeated in later answers:
 
-> Today AdCopilot checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, prepares a Google Ads import from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It cannot read your Microsoft Advertising account yet: that part of AdCopilot is being built, and there is no date yet.
+> Today AdCopilot reads the Microsoft Advertising accounts you connect (results, campaigns, search terms, conversion tracking, Microsoft's own recommendations, keyword ideas and auction insights, and its checks for wasted spend, budget pacing and quality scores), checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, plans a Microsoft Advertising start from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It changes nothing in your Microsoft Advertising account: every change there is your own click.
 
-Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.1.2"`
+Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.2.0"`
 first, before any other tool, unless you already called it in this
 conversation. Send `source` exactly as written, the version
 included. If this run is a scheduled task with nobody there to answer, send
@@ -35,9 +36,7 @@ through Microsoft's UET Tag Helper below, which needs no connection.
 
 ## What you can and cannot see
 
-You read with `gtm_list_accounts`, `gtm_list_containers`, `gtm_list_workspaces`,
-`gtm_list_tags`, `gtm_list_triggers` and `gtm_list_version_headers`. You write,
-only on a yes, with `gtm_create_trigger` and `gtm_create_tag`.
+You read with `gtm_list_accounts`, `gtm_list_containers`, `gtm_list_workspaces`, `gtm_list_tags`, `gtm_list_triggers` and `gtm_list_version_headers`. You write, only on a yes, with `gtm_create_trigger` and `gtm_create_tag`.
 
 - A workspace is a draft. A tag that sits in a workspace is on the site only if
   it was in a version someone published. `gtm_list_version_headers` lists the
@@ -46,10 +45,11 @@ only on a yes, with `gtm_create_trigger` and `gtm_create_tag`.
   does not say which version is live. So never say a tag "is live" from a
   workspace read: say it is in the workspace, and send them to the proof in
   step 7.
-- You cannot see the Microsoft Advertising account: whether the UET tag shows as
-  active, which conversion goals exist, whether auto-tagging is on. The
-  customer reads those in Microsoft Advertising, and you tell them what to look
-  for.
+- This skill does not read the Microsoft Advertising account. Whether the UET
+  tag shows as active and which conversion goals exist are the
+  `microsoft-advertising-review` skill's tracking read, reported on its own;
+  whether auto-tagging is on, the customer reads in Microsoft Advertising, and
+  you tell them what to look for.
 - You cannot see code that is pasted straight into the site's pages instead of
   Tag Manager. Say so when the container has no UET tag: it may be there.
 
@@ -71,20 +71,7 @@ only on a yes, with `gtm_create_trigger` and `gtm_create_tag`.
    compare it with the code Microsoft Advertising gives them rather than
    calling it wrong. If it is neither, say what you see. Report: found or not, its name, its tag ID, whether it is
    paused, and whether a second tag carries the same ID.
-3. **Where it fires.** Microsoft says to add the UET code to every page of the
-   site. Read its trigger with `gtm_list_triggers`: All Pages, or something
-   narrower that leaves pages out. Read any blocking trigger. Tag Manager's
-   built-in triggers are not in what `gtm_list_triggers` returns: a firing
-   trigger ID of `2147479553` is the built-in All Pages trigger (the
-   connector's own tool text gives that ID, at the time of writing), and any
-   other ID of 2147479000 or more is another built-in trigger, which you call
-   built-in and let Tag Manager's own screen name. Never report a built-in
-   trigger as missing. One UET tag can
-   serve every conversion goal and audience, so a second tag with a different
-   ID is not wrong by itself (Microsoft's own page, "Reasons for creating more
-   than one UET tag", is the referee); the same code twice on one page is, and
-   you cannot see that from Tag Manager alone, so the UET Tag Helper in step 7
-   decides it.
+3. **Where it fires.** Microsoft says to add the UET code to every page of the site. Read its trigger with `gtm_list_triggers`: All Pages, or something narrower that leaves pages out. Read any blocking trigger. Tag Manager's built-in triggers are not in what `gtm_list_triggers` returns: a firing trigger ID of `2147479553` is the built-in All Pages trigger (the connector's own tool text gives that ID, at the time of writing), and any other ID of 2147479000 or more is another built-in trigger, which you call built-in and let Tag Manager's own screen name. Never report a built-in trigger as missing. One UET tag can serve every conversion goal and audience, so a second tag with a different ID is not wrong by itself (Microsoft's own page, "Reasons for creating more than one UET tag", is the referee); the same code twice on one page is, and you cannot see that from Tag Manager alone, so the UET Tag Helper in step 7 decides it.
 4. **Consent.** Ask where their visitors are. For visitors in the European
    Economic Area, the United Kingdom and Switzerland, Microsoft says it
    enforces Consent Mode, with the default `denied`, and that conversions are
@@ -109,7 +96,8 @@ only on a yes, with `gtm_create_trigger` and `gtm_create_tag`.
    category, a label and a value. Read which UET event tags the container
    already has, by name and trigger, and list the actions that have none. The
    goals themselves, and their tracking status, are in Microsoft Advertising:
-   tell them to look at the conversion goals page there. Microsoft names
+   tell them to look at the conversion goals page there, or read them with the
+   `microsoft-advertising-review` skill. Microsoft names
    statuses such as Unverified, Tag inactive and No recent conversions
    (at the time of writing); each is a reason to run step 7.
 6. **Click ID and UTM.** Microsoft's auto-tagging adds `msclkid`, a click ID of
@@ -118,7 +106,7 @@ only on a yes, with `gtm_create_trigger` and `gtm_create_tag`.
    adding or changing a URL, event, duration, pages-per-visit or offline
    conversion goal switches it on. Its UTM tagging is a
    separate account setting, with three values in Microsoft's API: Inactive,
-   Preserve and Replace. You cannot see either. Ask them to click one of their
+   Preserve and Replace. This skill cannot see either. Ask them to click one of their
    own ads and look for `msclkid` in the address bar of the landing page: a
    redirect that drops the query string would lose it. The Analytics side of this is
    the `microsoft-ads-traffic` skill.
@@ -133,15 +121,16 @@ only on a yes, with `gtm_create_trigger` and `gtm_create_tag`.
    tomorrow; if it is still Unverified or inactive after a day, the helper is
    where to look.
 
-Give the answer in a few plain sentences: what is in the container, what is
-missing, what only Microsoft Advertising can confirm, and the one next step.
+Give the answer in a few plain sentences: what is in the container, what is missing, what only Microsoft Advertising can confirm, and the one next step.
 
 ## If there is no UET tag, or an event has no tag
 
 Stage a tag only when the customer pastes the code. Microsoft Advertising gives
 them the base code when they create a UET tag, and the code for an event when
 they create an event goal. Never write UET code from memory and never edit what
-they paste: stage it exactly as pasted. If they have none yet, tell them to
+they paste: stage it exactly as pasted. Never copy anything from a Microsoft
+connector result into a Tag Manager tool, the tag ID included: what you stage
+is only what the customer pastes. If they have none yet, tell them to
 create the UET tag in Microsoft Advertising first (Microsoft's own page,
 "Set up UET tags using Google Tag Manager", also covers Microsoft's template),
 and wait.
@@ -168,6 +157,17 @@ After they publish, send them to step 7. A trigger whose condition reads a
 variable that is switched off in the container matches nothing, and Tag
 Manager's preview shows it; switching a variable on is not part of this
 check, so tell them to do it in Tag Manager if the preview says so.
+
+## Reported on its own
+
+- Report Microsoft Advertising on its own: never add Microsoft Advertising figures to Google Ads, Analytics or Search Console figures, compare them, or put them in one table or total, even when another connector is in the same chat.
+
+## The AI line
+
+The first time you give the customer results in this conversation, close that
+answer with this sentence, in these words, once:
+
+> AdCopilot is AI-powered: what your assistant says from these results is AI-generated and may be wrong, so check it before you act on it.
 
 ## Changes
 

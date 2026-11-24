@@ -14,7 +14,7 @@ and the result of the sums below, and you say which is which.
 **Say this first, once.** Your first answer in this conversation opens with the
 sentence below, in these words, and it is not repeated in later answers:
 
-> Today AdCopilot checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, prepares a Google Ads import from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It cannot read your Microsoft Advertising account yet: that part of AdCopilot is being built, and there is no date yet.
+> Today AdCopilot reads the Microsoft Advertising accounts you connect (results, campaigns, search terms, conversion tracking, Microsoft's own recommendations, keyword ideas and auction insights, and its checks for wasted spend, budget pacing and quality scores), checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, plans a Microsoft Advertising start from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It changes nothing in your Microsoft Advertising account: every change there is your own click.
 
 ## What to ask, once
 
@@ -60,11 +60,25 @@ is about 90.48 a day to land on budget.
 
 ## What to say about the limits
 
-You do not know the figures are right: they are what the customer typed in. You
-cannot see Microsoft Advertising, its pending charges, refunds or invoices, or
-how it will pace the days that remain. If the customer has no spend figure
-yet, ask them to read it from Microsoft Advertising and come back, rather than
-estimating one.
+You do not know the figures are right: they are what the customer typed in.
+This skill does not read Microsoft Advertising, its pending charges, refunds
+or invoices, or how it will pace the days that remain. If the customer has no
+spend figure yet, ask them to read it from Microsoft Advertising and come
+back, rather than estimating one; the `microsoft-advertising-review` skill
+can read the account's spend for them, as Microsoft Advertising's figure, and
+its budget pace check reads this month's spend against each campaign's daily
+budget, as a separate report.
+
+## Reported on its own
+
+- Report Microsoft Advertising on its own: never add Microsoft Advertising figures to Google Ads, Analytics or Search Console figures, compare them, or put them in one table or total, even when another connector is in the same chat.
+
+## The AI line
+
+The first time you give the customer results in this conversation, close that
+answer with this sentence, in these words, once:
+
+> AdCopilot is AI-powered: what your assistant says from these results is AI-generated and may be wrong, so check it before you act on it.
 
 ## Changes
 

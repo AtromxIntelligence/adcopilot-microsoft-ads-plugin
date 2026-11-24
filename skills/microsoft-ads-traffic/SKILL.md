@@ -8,16 +8,19 @@ description: "Report Bing and Microsoft Advertising traffic and key events in Go
 The customer wants to know what their Microsoft Advertising clicks do on the
 site, as Google Analytics (GA4) counts it, and whether those clicks are labelled
 well enough to tell paid Bing visits from organic ones. You read Analytics
-through the AdCopilot connector at `https://mcp.adcopilot.cloud/mcp`. You cannot
-read their Microsoft Advertising account, so this is what Analytics saw, never
-what Microsoft Advertising billed or counted.
+through the AdCopilot connector at `https://mcp.adcopilot.cloud/mcp`. This skill
+reads Analytics only, so this is what Analytics saw, never what Microsoft
+Advertising billed or counted. Microsoft Advertising's own figures are the
+`microsoft-advertising-review` skill's, as a separate report: never put
+Analytics' figures and Microsoft Advertising's figures in one table or total,
+and never set them side by side to compare them.
 
 **Say this first, once.** Your first answer in this conversation opens with the
 sentence below, in these words, and it is not repeated in later answers:
 
-> Today AdCopilot checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, prepares a Google Ads import from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It cannot read your Microsoft Advertising account yet: that part of AdCopilot is being built, and there is no date yet.
+> Today AdCopilot reads the Microsoft Advertising accounts you connect (results, campaigns, search terms, conversion tracking, Microsoft's own recommendations, keyword ideas and auction insights, and its checks for wasted spend, budget pacing and quality scores), checks your Microsoft Advertising UET tag in Google Tag Manager and stages tags there for you to publish, reports Bing traffic and key events in Google Analytics (GA4), finds UTM and auto-tagging gaps, guides conversion goal setup, plans a Microsoft Advertising start from your Google Ads account, drafts responsive search ad copy and does the budget pacing math. It changes nothing in your Microsoft Advertising account: every change there is your own click.
 
-Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.1.2"`
+Call `get_org_context` with `source: "claude-plugin/adcopilot-microsoft-ads/0.2.0"`
 first, before any other tool, unless you already called it in this
 conversation. Send `source` exactly as written, the version included. If this run
 is a scheduled task with nobody there to answer, send `source: "claude-scheduled"`
@@ -34,13 +37,7 @@ invent no traffic number for a property you cannot read.
 
 ## The reads
 
-`ga4_list_account_summaries` finds the properties. If there is more than one,
-ask which, by the name Analytics shows. `ga4_get_metadata` lists the dimension
-and metric names that property accepts, so use it rather than guess a name that
-may be absent. `ga4_run_report` reads the numbers, and `ga4_list_conversion_events`
-lists what the property counts as a key event (the tool keeps the older word,
-conversion). Dates go in as `YYYY-MM-DD`, and you state the two ranges you
-compare, by date, in the answer.
+`ga4_list_account_summaries` finds the properties. If there is more than one, ask which, by the name Analytics shows. `ga4_get_metadata` lists the dimension and metric names that property accepts, so use it rather than guess a name that may be absent. `ga4_run_report` reads the numbers, and `ga4_list_conversion_events` lists what the property counts as a key event (the tool keeps the older word, conversion). Dates go in as `YYYY-MM-DD`, and you state the two ranges you compare, by date, in the answer.
 
 `ga4_run_report` takes dimensions, metrics, one date range and a row limit,
 and nothing else: it has no filter and no sort. So you ask for the dimensions,
@@ -51,16 +48,7 @@ more than the rows that came back, the rest were not read, and you say so.
 
 ## What to answer
 
-1. **Bing traffic as Analytics sorts it.** Two reports, the last 28 days and
-   the 28 before: sessions, key events and revenue (when the property has any)
-   by source and medium. From each, keep the rows whose source and medium
-   contain `bing`. At the time of
-   writing the names are `sessionSourceMedium`, `sessions`, `keyEvents` and
-   `totalRevenue`; confirm them with `ga4_get_metadata` if the report refuses
-   one. Show `bing / cpc` (paid) and `bing / organic` (unpaid search) as two
-   different rows, each with its own numbers, and never add them together as
-   "Bing". Then the same with `sessionCampaignName` beside
-   `sessionSourceMedium`, keeping the `bing / cpc` rows.
+1. **Bing traffic as Analytics sorts it.** Two reports, the last 28 days and the 28 before: sessions, key events and revenue (when the property has any) by source and medium. From each, keep the rows whose source and medium contain `bing`. At the time of writing the names are `sessionSourceMedium`, `sessions`, `keyEvents` and `totalRevenue`; confirm them with `ga4_get_metadata` if the report refuses one. Show `bing / cpc` (paid) and `bing / organic` (unpaid search) as two different rows, each with its own numbers, and never add them together as "Bing". Then the same with `sessionCampaignName` beside `sessionSourceMedium`, keeping the `bing / cpc` rows.
 2. **Paid clicks that arrive without UTM tags.** When a click reaches the site
    with no UTM tags, Analytics can only sort it by what it can see, such as the
    referrer, so a paid Bing visit can sit under `bing / organic` or under another
@@ -120,9 +108,21 @@ more than the rows that came back, the rest were not read, and you say so.
 ## What this cannot see
 
 Microsoft Advertising's own figures (spend, clicks, impressions, conversions),
+which the `microsoft-advertising-review` skill reads as a separate report,
 their settings (auto-tagging and UTM tagging), and ad clicks that never reached
 the site. A property that redacts query strings hides `msclkid` from these
 reports. Say which of these limits matters to the answer you give.
+
+## Reported on its own
+
+- Report Microsoft Advertising on its own: never add Microsoft Advertising figures to Google Ads, Analytics or Search Console figures, compare them, or put them in one table or total, even when another connector is in the same chat.
+
+## The AI line
+
+The first time you give the customer results in this conversation, close that
+answer with this sentence, in these words, once:
+
+> AdCopilot is AI-powered: what your assistant says from these results is AI-generated and may be wrong, so check it before you act on it.
 
 ## Changes
 
